@@ -1,0 +1,10 @@
+name: kpl-layers
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pytorch
+  - numpy
+prefix: /Users/klannon/miniconda3/envs/kpl-layers
