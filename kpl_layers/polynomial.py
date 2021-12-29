@@ -157,13 +157,14 @@ class PolySplineLayer(nn.Module):
 
         self.monomial_layer = MonomialLayer(self.n_inputs,self.degree)
         self.poly_coeffs = nn.ModuleList()
+        self.quadratic_layer = MonomialLayer(self.n_inputs,2)
         self.attention = nn.ModuleList()
         for i in range(n_outputs):
             self.poly_coeffs.append(nn.Linear(self.monomial_layer.n_outputs,self.n_attn))
             self.attention.append(nn.Sequential(
-                nn.Linear(self.n_inputs,10*self.n_attn),
+                self.quadratic_layer,
+                nn.Linear(self.quadratic_layer.n_outputs,self.n_attn),
                 nn.ReLU(),
-                nn.Linear(10*self.n_attn,self.n_attn),
                 nn.Softmax(dim=-1),
             ))
                                   
